@@ -8,6 +8,7 @@ import {
   Row
 } from 'react-bootstrap';
 
+// TODO: Import from API
 import Auth from '../utils/auth';
 import { saveBook, searchGoogleBooks } from '../utils/API';
 import { saveBookIds, getSavedBookIds } from '../utils/localStorage';
@@ -59,30 +60,32 @@ const SearchBooks = () => {
     }
   };
 
+  // TODO: Refactor with API
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
-    // find the book in `searchedBooks` state by the matching id
-    const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
+    // // find the book in `searchedBooks` state by the matching id
+    // const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
-    // get token
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
+    // // get token
+    // const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-    if (!token) {
-      return false;
-    }
+    // if (!token) {
+    //   return false;
+    // }
 
-    try {
-      const response = await saveBook(bookToSave, token);
+    // try {
+    //   // Use new api
+    //   const response = await saveBook(bookToSave, token);
 
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
+    //   if (!response.ok) {
+    //     throw new Error('something went wrong!');
+    //   }
 
-      // if book successfully saves to user's account, save book id to state
-      setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-    } catch (err) {
-      console.error(err);
-    }
+    //   // if book successfully saves to user's account, save book id to state
+    //   setSavedBookIds([...savedBookIds, bookToSave.bookId]);
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   return (
@@ -91,7 +94,7 @@ const SearchBooks = () => {
         <Container>
           <h1>Search for Books!</h1>
           <Form onSubmit={handleFormSubmit}>
-            <Form.Row>
+            <Row>
               <Col xs={12} md={8}>
                 <Form.Control
                   name='searchInput'
@@ -107,7 +110,7 @@ const SearchBooks = () => {
                   Submit Search
                 </Button>
               </Col>
-            </Form.Row>
+            </Row>
           </Form>
         </Container>
       </div>

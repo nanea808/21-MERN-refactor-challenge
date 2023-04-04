@@ -7,6 +7,7 @@ import {
   Col
 } from 'react-bootstrap';
 
+// TODO: Import from API
 import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
@@ -19,24 +20,25 @@ const SavedBooks = () => {
 
   useEffect(() => {
     const getUserData = async () => {
-      try {
-        const token = Auth.loggedIn() ? Auth.getToken() : null;
+      // TODO: Refactor get userdata
+      // try {
+      //   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-        if (!token) {
-          return false;
-        }
+      //   if (!token) {
+      //     return false;
+      //   }
 
-        const response = await getMe(token);
+      //   const response = await getMe(token);
 
-        if (!response.ok) {
-          throw new Error('something went wrong!');
-        }
+      //   if (!response.ok) {
+      //     throw new Error('something went wrong!');
+      //   }
 
-        const user = await response.json();
-        setUserData(user);
-      } catch (err) {
-        console.error(err);
-      }
+      //   const user = await response.json();
+      //   setUserData(user);
+      // } catch (err) {
+      //   console.error(err);
+      // }
     };
 
     getUserData();

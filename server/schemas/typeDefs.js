@@ -26,6 +26,8 @@ const typeDefs = gql`
     removeThought(thoughtId: ID!): Thought
     removeComment(thoughtId: ID!, commentId: ID!): Thought
   }
+
+  
 `;
 
 module.exports = typeDefs;
