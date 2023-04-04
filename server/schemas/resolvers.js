@@ -4,11 +4,11 @@ const resolvers = {
 
   // TODO: Implement User And Book Resolvers
   Query: {
-    
-  },
-  Mutation: {
 
-  }
+  },
+  // Mutation: {
+
+  // }
 
   // Query: {
   //   thoughts: async () => {
