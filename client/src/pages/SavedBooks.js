@@ -8,16 +8,16 @@ import {
 } from 'react-bootstrap';
 
 // TODO: Import from API
+import { Navigate, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { QUERY_USER, QUERY_ME } from '../api/queries';
+
+
 import { getMe, deleteBook } from '../utils/API';
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 
 const SavedBooks = () => {
-  const [userData, setUserData] = useState({});
-
-  // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
-
   useEffect(() => {
     const getUserData = async () => {
       // TODO: Refactor get userdata
@@ -40,9 +40,38 @@ const SavedBooks = () => {
       //   console.error(err);
       // }
     };
-
     getUserData();
   }, [userDataLength]);
+
+  const [userData, setUserData] = useState({});
+
+  // use this to determine if `useEffect()` hook needs to run again
+  const userDataLength = Object.keys(userData).length;
+
+  const { username: userParam } = useParams();
+
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    variables: { username: userParam },
+  });
+
+  const user = data?.me || data?.user || {};
+  // navigate to personal profile page if username is yours
+  if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
+    return <Navigate to="/me" />;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user?.username) {
+    return (
+      <h4>
+        You need to be logged in to see this. Use the navigation links above to
+        sign up or log in!
+      </h4>
+    );
+  }
 
   // create function that accepts the book's mongo _id value as param and deletes the book from the database
   const handleDeleteBook = async (bookId) => {

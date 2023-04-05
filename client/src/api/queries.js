@@ -1,12 +1,39 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
+export const QUERY_USER = gql`
+query User($username: String!) {
+  user(username: $username) {
+    _id
+    email
+    username
+    savedBooks {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
+      authors
+      bookId
+      description
+      image
+      link
+      title
+    }
+  }
+}
+`;
+
+export const QUERY_ME = gql`
+  query me {
+    me {
+      _id
+      email
+      username
+      savedBooks {
+        _id
+        authors
+        bookId
+        description
+        image
+        link
+        title
+      }
     }
   }
 `;
