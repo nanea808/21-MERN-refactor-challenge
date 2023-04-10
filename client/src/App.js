@@ -40,14 +40,12 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Router>
-        <>
           <Navbar />
           <Routes>
-            <Route exact path="/" component={SearchBooks} />
-            <Route exact path="/saved" component={SavedBooks} />
+            <Route path="/" element={SearchBooks} />
+            <Route spath="/saved" element={SavedBooks} />
             <Route render={() => <h1 className="display-2">Wrong page!</h1>} />
           </Routes>
-        </>
       </Router>
     </ApolloProvider>
   );
